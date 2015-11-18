@@ -15,9 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Lisa on 10/28/15.
- */
+
 public class DrinkRecipeListAdapter extends ArrayAdapter<DrinkRecipeModel>{
     public DrinkRecipeListAdapter (Context context, ArrayList<DrinkRecipeModel> recipes) {
         super(context, 0, recipes);
@@ -41,10 +39,16 @@ public class DrinkRecipeListAdapter extends ArrayAdapter<DrinkRecipeModel>{
 
         if (recipe != null) {
             TextView nameText = (TextView) v.findViewById(R.id.nameText);
-            ImageView icon = (ImageView) v.findViewById(R.id.icon);
+            ImageView icon = (ImageView) v.findViewById(R.id.cocktailThumb);
 
-            if (icon != null){
-                Picasso.with(getContext()).load(recipe.drinkThumb).resize(200,200).into(icon);
+            if (icon != null) {
+                if (recipe.drinkThumb == null) {
+                    icon.setImageResource(R.mipmap.noimage);
+                    icon.setImageAlpha(175);
+                } else {
+                    Picasso.with(getContext()).load(recipe.drinkThumb).into(icon);
+                    icon.setImageAlpha(175);
+                }
             }
             if (nameText != null) {
                 nameText.setText(recipe.getDrinkName());
@@ -54,3 +58,4 @@ public class DrinkRecipeListAdapter extends ArrayAdapter<DrinkRecipeModel>{
 
     }
 }
+

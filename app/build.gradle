@@ -35,7 +35,7 @@ dependencies {
     compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta1'
     compile 'com.google.code.gson:gson:2.3.1'
 //Picasso
-    compile 'com.squareup.picasso:picasso:2.3.3'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 // Parceler
     compile 'org.parceler:parceler-api:1.0.4'
     apt 'org.parceler:parceler:1.0.4'

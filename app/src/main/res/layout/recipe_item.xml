@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="10dp">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/icon"
-        android:layout_width="@dimen/activity_horizontal_margin"
-        android:layout_height="@dimen/activity_vertical_margin"
-        android:padding="10dp"
+        android:id="@+id/cocktailThumb"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:contentDescription="@string/icon"
         />
 
@@ -15,7 +14,12 @@
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/icon"
+        android:layout_toEndOf="@id/cocktailThumb"
+        android:paddingStart="30dp"
+        android:paddingTop="25dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000"
         />
 
 </RelativeLayout>
