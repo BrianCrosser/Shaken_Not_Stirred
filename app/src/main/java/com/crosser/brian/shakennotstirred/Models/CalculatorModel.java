@@ -9,12 +9,15 @@ import java.util.Objects;
 public class CalculatorModel {
 
     public int weight;
-    private Date beginTime;
+    private Date beginTime = new Date();
     public double man = .73;
     public double woman = .66;
     public int shots;
     public int beers;
     public int wine;
+    public final double beerABV = .045;
+    public final double shotABV = .37;
+    public final double wineABV = .116;
 
 
     public void CalculatorModel(){
@@ -34,6 +37,8 @@ public class CalculatorModel {
         beginTime = new Date();
     }
 
+    public void startTime(int hour, int minute) {beginTime.setHours(hour); beginTime.setMinutes(minute);}
+
     public double getGender(String gender)
     {
         if(Objects.equals(gender, "Male"))
@@ -45,18 +50,22 @@ public class CalculatorModel {
     public double getConsumptionTime()
     {
         Date currentTime = new Date();
-        return (currentTime.getTime() - beginTime.getTime()) * 1000;
+        double currTime = currentTime.getTime() - beginTime.getTime();
+        currTime = ((((((currTime / 1000) % 60) / 60) % 60) / 60) % 24);
+        return currTime;
     }
 
     public double totalConsumed()
     {
-        return shots + wine + beers;
+        return ((shots * 1.5) * shotABV) + ((wine * 6) * wineABV) + ((beers * 16.9) * beerABV);
     }
 
     public double getBAC(String gender)
     {
         double t = getConsumptionTime();
         double bac = (totalConsumed() * 5.15 / weight * getGender(gender)) - .015 * t;
+        if(bac < 0)
+            return 0;
         return bac;
     }
 
