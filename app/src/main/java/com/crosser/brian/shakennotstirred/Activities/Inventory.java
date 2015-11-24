@@ -1,18 +1,199 @@
 package com.crosser.brian.shakennotstirred.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.content.ContentValues;
+import android.widget.TextView;
 
+import com.crosser.brian.shakennotstirred.Adapters.InventoryListAdapter;
+//import com.crosser.brian.shakennotstirred.Models.IngredientListModel;
 import com.crosser.brian.shakennotstirred.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory extends Activity {
 
+    private boolean result;
+
+    //private String[] values = {"Whiskey", "test", "hi","Wine"};
+    //AutoCompleteTextView txtView;
+
+    // ListView cabinetView = (ListView) findViewById(R.id.cabinetView);
+    private EditText newIngredient;
+    private InventoryListAdapter InventoryDatabaseHelper;
+    private ListView cabinetView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
+
+
+
+        //start editing here
+        newIngredient=(EditText) findViewById(R.id.newIngredient);
+
+
+
+        InventoryDatabaseHelper = new InventoryListAdapter(this);
+
+
+        cabinetView =(ListView) findViewById(R.id.cabinetView);
+        // formatting
+        cabinetView.setBackgroundColor(Color.LTGRAY);
+        cabinetView.getBackground().setAlpha(200);
+        newIngredient.setBackgroundColor(Color.LTGRAY);
+        newIngredient.getBackground().setAlpha(200);
+
+
+        ArrayList<String> data = InventoryDatabaseHelper.getAllIngredients();
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                data);
+        cabinetView.setAdapter(adapter);
+
+
+        cabinetView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //cabinetView.setOnItemLongClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //String ingredient = Integer.toString(position);
+                String ingredient = ((TextView)view).getText().toString();
+                //call alert dialog
+                // if retult == yes
+                // deleteIngredient(text);
+                // else {continue}
+                //if (toDelete(view)) { deleteIngredient(ingredient); }
+                boolean value = toDelete(view, ingredient);
+                // if (value) { deleteIngredient(ingredient); }
+
+
+            }
+        });
+
+
+    }
+
+    public void addIngredient(View view){
+
+        //http://developer.android.com/guide/topics/ui/controls/text.html
+        // autocomplete
+
+
+        String ingredient = newIngredient.getText().toString();
+        long id = InventoryDatabaseHelper.insertData(ingredient);
+        if (id<0){
+           // Message.message(this, "Error: Do not add ingredients already in your cabinet!");
+
+        }
+        else {
+            // Message.message(this,"successful");
+
+            newIngredient.setText("");
+            cabinetView =(ListView) findViewById(R.id.cabinetView);
+            cabinetView.setBackgroundColor(Color.LTGRAY);
+            cabinetView.getBackground().setAlpha(200);
+            ArrayList<String> data = InventoryDatabaseHelper.getAllIngredients();
+            ArrayAdapter<String> adapter=new ArrayAdapter<String>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    data);
+            cabinetView.setAdapter(adapter);
+
+        }
+
+    }
+
+
+
+
+
+
+//    private doOnTrueResult() {
+//        result = true;
+//        //do something
+//    }
+//
+//    private doOnFalseResult() {
+//        result = false;
+//        //do something else
+//    }
+
+    public void showConfirmationBox(String messageToShow, final Context context, final String ingredient) {
+        //final String ingredient = ingredient;
+        // prepare the alert box
+        AlertDialog.Builder alertbox = new AlertDialog.Builder(context);
+
+        // set the message to display
+        alertbox.setMessage(messageToShow);
+
+        // set a positive/yes button and create a listener
+        alertbox.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                        // Message.message(this, "yes");
+                        deleteIngredient(ingredient);
+                    }
+                });
+
+        // set a negative/no button and create a listener
+        alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            // do something when the button is clicked
+            public void onClick(DialogInterface arg0, int arg1) {
+
+                // doOnFalseResult();
+            }
+        });
+
+        // display box
+        alertbox.show();
+    }
+
+
+    public boolean toDelete (View view, String ingredient) {
+        showConfirmationBox("Are you sure want to remove all the " + ingredient + " in your cabinet?", this, ingredient);
+        return false;
+    }
+
+    public void deleteIngredient (String ingredient) {
+        // delete ingredient from listview AND DB
+        int id = 0;
+        Integer ingredientsDeleted = InventoryDatabaseHelper.deleteIngredient(ingredient);
+        //String del = Integer.toString(ingredientsDeleted);
+        //Message.message(this, del);
+
+        newIngredient.setText("");
+        cabinetView =(ListView) findViewById(R.id.cabinetView);
+        cabinetView.setBackgroundColor(Color.LTGRAY);
+        cabinetView.getBackground().setAlpha(200);
+        ArrayList<String> data = InventoryDatabaseHelper.getAllIngredients();
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                data);
+        cabinetView.setAdapter(adapter);
+
+
     }
 
     @Override
@@ -36,4 +217,5 @@ public class Inventory extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
