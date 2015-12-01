@@ -8,25 +8,19 @@
     tools:context="com.crosser.brian.shakennotstirred.activity.activity.Inventory"
     android:background="@mipmap/ic_background">
 
-    <RelativeLayout
+
+
+
+    <TextView
         android:id="@+id/header"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="#ffcccccc"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Ingredients in Your Cabinet"
-            android:textColor="#000000"
-            android:textSize="20sp"/>
-    </RelativeLayout>
-
-
-
+        android:layout_margin="5dp"
+        android:text="INGREDIENTS IN YOUR CABINET"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center"/>
 
 
     <AutoCompleteTextView
