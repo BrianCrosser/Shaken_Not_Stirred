@@ -12,6 +12,7 @@
     <string name="title_activity_inventory">Inventory</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="search_bar">Search for a Cocktail...</string>
+    <string name="weight_bar">Enter your Weight...</string>
     <string name="icon">Cocktail Icon</string>
 
     <string-array name="genders_array">

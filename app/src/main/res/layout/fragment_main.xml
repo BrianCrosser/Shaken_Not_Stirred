@@ -16,6 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:paddingTop="16dp"
+        android:gravity="center"
         >
     </TextView>
 
@@ -28,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/randomCocktail"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
         >
     </TextView>
 

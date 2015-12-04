@@ -39,6 +39,8 @@ public class DrinkRecipeListAdapter extends ArrayAdapter<DrinkRecipeModel>{
 
         if (recipe != null) {
             TextView nameText = (TextView) v.findViewById(R.id.nameText);
+            TextView ingredient1 = (TextView) v.findViewById(R.id.ingredient1);
+            TextView ingredient2 = (TextView) v.findViewById(R.id.ingredient2);
             ImageView icon = (ImageView) v.findViewById(R.id.cocktailThumb);
 
             if (icon != null) {
@@ -52,6 +54,8 @@ public class DrinkRecipeListAdapter extends ArrayAdapter<DrinkRecipeModel>{
             }
             if (nameText != null) {
                 nameText.setText(recipe.getDrinkName());
+                ingredient1.setText(recipe.getIngredient1());
+                ingredient2.setText(recipe.getIngredient2());
             }
         }
         return v;

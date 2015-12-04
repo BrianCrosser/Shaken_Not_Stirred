@@ -6,9 +6,6 @@ import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
 
-/**
- * Created by Lisa on 10/28/15.
- */
 public class APIClient {
     private static com.crosser.brian.shakennotstirred.Providers.IDrinkRecipeProvider drinkRecipeProvider;
 
@@ -24,3 +21,4 @@ public class APIClient {
         return drinkRecipeProvider;
     }
 }
+

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StoreProduct2"
+    android:background="@mipmap/ic_background"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/rectangle_grey"
+        android:alpha=".85"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+
+
+    <TextView
+        android:id="@+id/supermarketName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:paddingTop="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textSize="25sp"
+        android:textColor="#000"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
+
+
+    <TextView
+        android:id="@+id/supermarketArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/supermarketName"
+        android:paddingTop="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textSize="25sp"
+        android:textColor="#000"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/supermarketPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/supermarketArea"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="25sp"
+        android:textColor="#000"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
+
+
+    <EditText
+        android:id="@+id/searchItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:layout_below="@id/supermarketPhone"
+        android:hint="Search for a product..."/>
+
+    <Button
+        android:id="@+id/itemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/searchItem"
+        android:layout_below="@id/supermarketPhone"
+        android:text="Search"
+        android:textSize="15dp"/>
+
+
+    <ListView
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:id='@+id/supermarketList'
+        android:layout_below="@id/searchItem"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:fastScrollEnabled="true"
+        android:textColor='#000'
+        android:divider="#000"
+        android:dividerHeight="1dp"
+        >
+
+    </ListView>
+
+</RelativeLayout>

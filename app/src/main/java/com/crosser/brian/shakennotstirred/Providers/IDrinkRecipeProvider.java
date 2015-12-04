@@ -16,4 +16,5 @@ public interface IDrinkRecipeProvider {
 
     @GET("api/json/v1/1/random.php")
     Observable<SearchResultModel> getRandomDrinkRecipe();
+
 }

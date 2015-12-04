@@ -156,6 +156,7 @@ public class SearchActivity extends Activity {
 
                 myIntent.putExtras(extras);
                 startActivity(myIntent);
+                overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
 
             }
         });

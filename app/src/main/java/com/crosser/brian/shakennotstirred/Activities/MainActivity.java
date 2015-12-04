@@ -63,6 +63,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SearchActivity.class);
                 startActivityForResult(intent, 0);
+                overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
             }
         });
 
@@ -71,6 +72,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), BAC_CalculatorActivity.class);
                 startActivityForResult(intent, 0);
+                overridePendingTransition(R.anim.animation_up_in, R.anim.animation_up_out);
             }
         });
 
@@ -79,6 +81,15 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Inventory.class);
                 startActivityForResult(intent, 0);
+                overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), StoreActivity.class);
+                startActivityForResult(intent, 0);
+                overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
             }
         });
 
@@ -191,6 +202,7 @@ public class MainActivity extends Activity {
 
                                 myIntent.putExtras(extras);
                                 startActivity(myIntent);
+                                overridePendingTransition(R.anim.animation_fade_in, R.anim.animation_fade_out);
 
                             }
                         });

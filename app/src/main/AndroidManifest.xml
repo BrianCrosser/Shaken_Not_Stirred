@@ -45,6 +45,26 @@
             android:name=".Activities.Inventory"
             android:label="@string/title_activity_inventory" >
         </activity>
+        <activity
+            android:name=".Activities.Ingredient"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="Ingredient" >
+        </activity>
+        <activity
+            android:name=".Activities.StoreActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="StoreSearch" >
+        </activity>
+        <activity
+            android:name=".Activities.StoreProduct"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="StoreSearch" >
+        </activity>
+        <activity
+            android:name=".Activities.StoreProduct2"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="StoreSearch" >
+        </activity>
     </application>
 
 </manifest>

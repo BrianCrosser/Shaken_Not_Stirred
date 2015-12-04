@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CocktailDisplayActivity"
+    tools:context=".Activities.StoreProduct"
     android:background="@mipmap/ic_background"
     >
 
@@ -16,82 +16,82 @@
         android:paddingBottom="10dp"
         />
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/cocktailImage"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="15dp"
-        android:maxHeight="80dp"
-        android:maxWidth="80dp"
-        android:minHeight="10dp"
-        android:minWidth="10dp" />
 
     <TextView
-        android:id="@+id/cocktailName"
+        android:id="@+id/supermarketName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cocktailImage"
-        android:textStyle="bold"
-        android:textSize="30sp"
+        android:layout_alignParentTop="true"
+        android:paddingTop="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textSize="25sp"
+        android:textColor="#000"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
+
+
+    <TextView
+        android:id="@+id/supermarketArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/supermarketName"
+        android:paddingTop="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textSize="25sp"
         android:textColor="#000"
         android:gravity="center"
         android:layout_centerHorizontal="true"/>
 
     <TextView
+        android:id="@+id/supermarketPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/instructions"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/cocktailName"
-        android:paddingTop="10dp"
-        android:paddingStart="25dp"
+        android:layout_below="@id/supermarketArea"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:textSize="25sp"
-        android:text="Instructions:"
         android:textColor="#000"
-        />
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
+
 
     <TextView
+        android:id="@+id/supermarketItemText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/instructionString"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/instructions"
-        android:paddingTop="10dp"
-        android:paddingStart="25dp"
-        android:paddingEnd="20dp"
-        android:textSize="20sp"
+        android:layout_below="@id/supermarketPhone"
+        android:text="Products with keyword: "
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="25sp"
         android:textColor="#000"
-        android:maxLines = "6"
-        android:scrollbars = "vertical"
-        />
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
+        android:id="@+id/supermarketItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ingredientText"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/instructionString"
-        android:paddingTop="10dp"
-        android:paddingStart="25dp"
-        android:paddingBottom="5dp"
+        android:layout_below="@id/supermarketItemText"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:textSize="25sp"
-        android:text="Ingredients:"
         android:textColor="#000"
-        />
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
 
     <ListView
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:id='@+id/ingredientList'
-        android:layout_below="@id/ingredientText"
+        android:id='@+id/supermarketList'
+        android:layout_below="@id/supermarketItem"
         android:layout_centerHorizontal="true"
         android:paddingTop="5dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingBottom="5dp"
+        android:paddingBottom="10dp"
         android:fastScrollEnabled="true"
         android:textColor='#000'
         android:divider="#000"

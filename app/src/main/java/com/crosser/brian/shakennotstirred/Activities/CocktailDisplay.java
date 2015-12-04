@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -47,7 +48,7 @@ public class CocktailDisplay extends Activity {
 
         // get the intent from which this activity is called.
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
+        final Bundle extras = intent.getExtras();
         // fetch value from key-value pair and make it visible on TextView.
 
         String cocktail_Name = extras.getString("cocktail-name");
@@ -86,7 +87,7 @@ public class CocktailDisplay extends Activity {
         String cocktail_measure14 = extras.getString("cocktail-measure14");
         String cocktail_measure15 = extras.getString("cocktail-measure15");
 
-        ArrayList<String> ingredientList = new ArrayList<String>();
+        final ArrayList<String> ingredientList = new ArrayList<String>();
         if (!cocktail_ingredient1.isEmpty() || cocktail_ingredient1.startsWith(" "))
             ingredientList.add(cocktail_ingredient1);
         if (!cocktail_ingredient2.isEmpty() || cocktail_ingredient2.startsWith(" "))
@@ -164,6 +165,21 @@ public class CocktailDisplay extends Activity {
             CustomArrayAdapter adapter = new CustomArrayAdapter(getBaseContext(), ingredientList, measureList);
             List.setAdapter(adapter);
         }
+
+        List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+
+                List.getItemAtPosition(position);
+                String item = ingredientList.get(position);
+
+                Intent i=new Intent(CocktailDisplay.this, Ingredient.class);
+                i.putExtra("Item", item);
+
+                startActivity(i);
+                overridePendingTransition(R.anim.animation_fade_in, R.anim.animation_fade_out);
+            }
+        });
     }
 
     public class CustomArrayAdapter extends BaseAdapter {
