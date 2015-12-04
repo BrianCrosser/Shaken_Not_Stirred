@@ -35,7 +35,9 @@ public class Inventory extends Activity {
     //AutoCompleteTextView txtView;
 
     // ListView cabinetView = (ListView) findViewById(R.id.cabinetView);
-    private EditText newIngredient;
+    //private EditText newIngredient;
+    AutoCompleteTextView newIngredient;
+    String[] ingredientArray;
     private InventoryListAdapter InventoryDatabaseHelper;
     private ListView cabinetView;
     @Override
@@ -46,8 +48,12 @@ public class Inventory extends Activity {
 
 
         //start editing here
-        newIngredient=(EditText) findViewById(R.id.newIngredient);
-
+        //newIngredient=(EditText) findViewById(R.id.newIngredient);
+        newIngredient = (AutoCompleteTextView) findViewById(R.id.newIngredient);
+        ingredientArray = getResources().getStringArray(R.array.ingredients_array);
+        ArrayAdapter<String> ingredientAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,ingredientArray);
+        newIngredient.setAdapter(ingredientAdapter);
+        //newIngredient.setDropDownHeight(500);
 
 
         InventoryDatabaseHelper = new InventoryListAdapter(this);

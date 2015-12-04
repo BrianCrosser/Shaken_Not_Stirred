@@ -106,5 +106,9 @@ public class CalculatorModel {
             beers -= 1;
     }
 
+    public void setShot(int newShot) {shots = newShot;}
 
+    public void setBeer(int newBeer) {beers = newBeer;}
+
+    public void setWine(int newWine) {wine = newWine;}
 }

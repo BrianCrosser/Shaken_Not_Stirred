@@ -20,6 +20,10 @@ import android.widget.TimePicker;
 import com.crosser.brian.shakennotstirred.R;
 import com.crosser.brian.shakennotstirred.Models.CalculatorModel;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -52,6 +56,7 @@ public class BAC_CalculatorActivity extends Activity {
     public String wine;
     public int hour;
     public int minute;
+    public String bac;
 
     static final int TIME_DIALOG_ID = 999;
 
@@ -92,18 +97,8 @@ public class BAC_CalculatorActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         genderSpinner.setAdapter(adapter);
-        calculatorModel.getGender(genderSpinner.getSelectedItem().toString());
-
-//        // Create an ArrayAdapter using the string array and a default spinner layout
-//        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
-//                R.array.weights_array, android.R.layout.simple_spinner_item);
-//        // Specify the layout to use when the list of choices appears
-//        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        // Apply the adapter to the spinner
-//
-//
-//        //weightSpinner.setAdapter(adapter1);
-//        //calculatorModel.setWeight(weightSpinner.getSelectedItem().toString());
+        gender = genderSpinner.getSelectedItem().toString();
+        calculatorModel.getGender(gender);
 
         weightbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,18 +168,30 @@ public class BAC_CalculatorActivity extends Activity {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView12.setText(String.valueOf(calculatorModel.getBAC(String.valueOf(calculatorModel.getGender(genderSpinner.getSelectedItem().toString())))));
+                DecimalFormat formatter1 = new DecimalFormat("0.00");
+                bac = formatter1.format(calculatorModel.getBAC(String.valueOf(calculatorModel.getGender(genderSpinner.getSelectedItem().toString()))));
+                textView12.setText(bac);
+
+                String FILENAME = "CalculatorInfo";
+                FileOutputStream fos = null;
+                try {
+                    fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    fos.write(bac.getBytes(), 0, bac.length());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
-//        setButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                hour = timePicker.getCurrentHour();
-//                minute = timePicker.getCurrentMinute();
-//                calculatorModel.startTime(hour, minute);
-//            }
-//        });
     }
 
     @Override
@@ -227,6 +234,7 @@ public class BAC_CalculatorActivity extends Activity {
         editor.putString("wine", wine);
         editor.putInt("hour", hour);
         editor.putInt("minute", minute);
+        gender = genderSpinner.getSelectedItem().toString();
         editor.putString("gender", gender);
 
         // Commit the edits!
@@ -244,19 +252,43 @@ public class BAC_CalculatorActivity extends Activity {
         WeightEdit.setText(weight);
 
         shots = info.getString("shots", "0");
+        calculatorModel.setShot(Integer.parseInt(shots));
+        textView9.setText(shots);
 
         beers = info.getString("beers", "0");
+        calculatorModel.setBeer(Integer.parseInt(beers));
+        textView11.setText(beers);
 
         wine = info.getString("wine", "0");
+        calculatorModel.setWine(Integer.parseInt(wine));
+        textView10.setText(wine);
 
         hour = info.getInt("hour", 0);
         timePicker1.setCurrentHour(hour);
 
         minute = info.getInt("minute", 0);
-        timePicker1.setCurrentMinute(minute);
+
+        String minString;
+        if(minute < 10){
+            DecimalFormat formatter = new DecimalFormat("00");
+            minString = formatter.format(minute);
+        }
+        else
+            minString = Integer.toString(minute);
+
+        tvDisplayTime = (TextView) findViewById(R.id.tvTime);
+        // set current time into textview
+        tvDisplayTime.setText(
+                new StringBuilder().append(pad(hour))
+                        .append(":").append(minString));
 
         gender = info.getString("gender", "Female");
-        genderSpinner.setSelection(0);
+        int setGender;
+        if(gender.equals("Male"))
+            setGender = 0;
+        else
+            setGender = 1;
+        genderSpinner.setSelection(setGender);
 
     }
 
@@ -317,9 +349,18 @@ public class BAC_CalculatorActivity extends Activity {
                     minute = selectedMinute;
                     calculatorModel.startTime(hour, minute);
 
+                    String minString;
+                    if(minute < 10){
+                        DecimalFormat formatter = new DecimalFormat("00");
+                        minString = formatter.format(minute);
+                    }
+                    else
+                        minString = Integer.toString(minute);
+
                     // set current time into textview
-                    tvDisplayTime.setText(new StringBuilder().append(pad(hour))
-                            .append(":").append(pad(minute)));
+                    tvDisplayTime.setText(
+                            new StringBuilder().append(pad(hour))
+                                    .append(":").append(minString));
 
                     // set current time into timepicker
                     timePicker1.setCurrentHour(hour);
