@@ -1,7 +1,9 @@
 package com.crosser.brian.shakennotstirred.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,11 @@ import com.crosser.brian.shakennotstirred.Models.DrinkRecipeModel;
 import com.crosser.brian.shakennotstirred.Models.SearchResultModel;
 import com.crosser.brian.shakennotstirred.Services.APIClient;
 import com.squareup.picasso.Picasso;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -58,6 +65,7 @@ public class MainActivity extends Activity {
         button5.getBackground().setAlpha(175);
         randomCocktailImage.getBackground().setAlpha(175);
 
+        button5.setImageResource(R.mipmap.ic_bacgreen);
 
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -201,4 +209,42 @@ public class MainActivity extends Activity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        String FILENAME = "CalculatorInfo";
+        float bac = -1;
+        String bacS="";
+        FileInputStream fin = null;
+        try {
+            fin = openFileInput(FILENAME);
+            int c;
+            try {
+                while( (c = fin.read()) != -1){
+                    bacS = bacS + Character.toString((char)c);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            bac = 0;
+        }
+
+        if(bac == -1 && bacS != "")
+            bac = Float.parseFloat(bacS);
+        else{
+            try {
+                fin.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(bac < .03)
+            button5.setImageResource(R.mipmap.ic_bacgreen);
+        else if (bac <= .06 && bac >= .03)
+            button5.setImageResource(R.mipmap.ic_bacyellow);
+        else if (bac > .06)
+            button5.setImageResource(R.mipmap.ic_bac);
+    }
 }
