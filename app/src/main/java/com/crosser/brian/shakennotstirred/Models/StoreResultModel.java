@@ -19,6 +19,7 @@ public class StoreResultModel {
         return searchStoresResults;
     }
 
+
     public void setSearchStoresResults(ArrayList<StoreModel> searchStoresResults){
         this.searchStoresResults = searchStoresResults;
     }

@@ -1,24 +1,15 @@
 package com.crosser.brian.shakennotstirred.Adapters;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-//import com.crosser.brian.shakennotstirred.Models.IngredientListModel;
-
-//import com.crosser.brian.shakennotstirred.Activities.Message;
-import com.crosser.brian.shakennotstirred.R;
 
 import java.util.ArrayList;
+
+//import com.crosser.brian.shakennotstirred.Models.IngredientListModel;
+//import com.crosser.brian.shakennotstirred.Activities.Message;
 
 /**
  * Created by Lisa on 11/14/15.
@@ -66,30 +57,6 @@ public class InventoryListAdapter {
         return ingredients;
 
     }
-
-
-
-
-
-//    public ArrayList<IngredientListModel> getAllIngredients(){
-//
-//        SQLiteDatabase db = helper.getWritableDatabase();
-//
-//        //select _id,Name from IVENTORY
-//        String[] columns = {InventoryDatabaseHelper.UID, InventoryDatabaseHelper.NAME};
-//        Cursor cursor= db.query(InventoryDatabaseHelper.TABLE_NAME, columns, null,null, null,null,null);
-//        ArrayList<IngredientListModel> ingredientsAndIds = new ArrayList<IngredientListModel>();
-//        while(cursor.moveToNext()){
-//            String ingredient = cursor.getString(1);
-//            String id = cursor.getString(0);
-//            IngredientListModel adding = new IngredientListModel();
-//            adding.id = id.toString();
-//            adding.ingredient = ingredient.toString();
-//            ingredientsAndIds.add(adding);
-//        }
-//        return ingredientsAndIds;
-//
-//    }
 
 
 

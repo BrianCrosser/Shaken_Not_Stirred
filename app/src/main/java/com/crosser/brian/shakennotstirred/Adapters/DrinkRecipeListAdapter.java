@@ -39,8 +39,7 @@ public class DrinkRecipeListAdapter extends ArrayAdapter<DrinkRecipeModel>{
 
         if (recipe != null) {
             TextView nameText = (TextView) v.findViewById(R.id.nameText);
-            TextView ingredient1 = (TextView) v.findViewById(R.id.ingredient1);
-            TextView ingredient2 = (TextView) v.findViewById(R.id.ingredient2);
+            TextView ingredients1 = (TextView) v.findViewById(R.id.ingredients);
             ImageView icon = (ImageView) v.findViewById(R.id.cocktailThumb);
 
             if (icon != null) {
@@ -52,10 +51,13 @@ public class DrinkRecipeListAdapter extends ArrayAdapter<DrinkRecipeModel>{
                     icon.setImageAlpha(175);
                 }
             }
-            if (nameText != null) {
+            if (nameText != null)
                 nameText.setText(recipe.getDrinkName());
-                ingredient1.setText(recipe.getIngredient1());
-                ingredient2.setText(recipe.getIngredient2());
+            if (recipe.ingredient1 != null && recipe.ingredient2 != null){
+                String ingredients = recipe.getIngredient1() + ", " + recipe.getIngredient2() + "...";
+
+                ingredients1.setText(ingredients);
+
             }
         }
         return v;

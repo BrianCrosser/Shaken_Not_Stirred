@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.crosser.brian.shakennotstirred" >
+    package="com.crosser.brian.shakennotstirred">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher2"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.SplashScreen"
             android:label="@string/title_activity_splash_screen"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar" >
-            <intent-filter android:label="SnS" >
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter android:label="SnS">
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activities.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -30,40 +31,42 @@
             android:name=".Activities.CocktailDisplay"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Cocktail"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-        </activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".Activities.SearchActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-            android:label="@string/title_activity_search" >
-        </activity>
+            android:label="@string/title_activity_search"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" />
         <activity
             android:name=".Activities.BAC_CalculatorActivity"
-            android:label="@string/title_activity_bac__calculator" >
-        </activity>
+            android:label="@string/title_activity_bac__calculator" />
         <activity
             android:name=".Activities.Inventory"
-            android:label="@string/title_activity_inventory" >
-        </activity>
+            android:label="@string/title_activity_inventory" />
         <activity
             android:name=".Activities.Ingredient"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="Ingredient" >
-        </activity>
+            android:label="Ingredient" />
         <activity
             android:name=".Activities.StoreActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="StoreSearch" >
-        </activity>
+            android:label="StoreSearch" />
         <activity
             android:name=".Activities.StoreProduct"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="StoreSearch" >
-        </activity>
+            android:label="StoreSearch" />
         <activity
             android:name=".Activities.StoreProduct2"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="StoreSearch" >
+            android:label="StoreSearch" />
+        <activity
+            android:name=".Activities.GeniusActivity"
+            android:label="@string/title_activity_genius"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.GeniusDisplay"
+            android:label="@string/title_activity_genius_display"
+            android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
     </application>
 

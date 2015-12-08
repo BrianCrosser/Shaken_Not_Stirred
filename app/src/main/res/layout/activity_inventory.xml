@@ -16,10 +16,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="INGREDIENTS IN YOUR CABINET"
+        android:text="INGREDIENTS IN YOUR CABINET*"
         android:textColor="#fff"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:gravity="center"/>
 
 
@@ -30,6 +30,7 @@
         android:layout_below="@+id/header"
         android:hint="Add New Ingredient"
         android:layout_marginTop="20dp"/>
+
 
     <Button
         android:text="Add"
@@ -52,9 +53,6 @@
         android:textSize="50dp"
         android:textColor='#000'
         />
-    <AutoCompleteTextView
-        android:id="@+id/auto_names"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
 
 </RelativeLayout>

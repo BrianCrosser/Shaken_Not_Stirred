@@ -23,7 +23,7 @@
         />
 
     <TextView
-        android:id="@+id/ingredient1"
+        android:id="@+id/ingredients"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/cocktailThumb"
@@ -34,45 +34,6 @@
         android:textColor="#000"
         />
 
-    <TextView
-        android:id="@+id/comma1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/cocktailThumb"
-        android:layout_below="@id/nameText"
-        android:text=","
-        android:layout_toRightOf="@id/ingredient1"
-        android:paddingTop="5dp"
-        android:textSize="12sp"
-        android:textColor="#000"
-        />
-
-    <TextView
-        android:id="@+id/ingredient2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/cocktailThumb"
-        android:layout_below="@id/nameText"
-        android:layout_toRightOf="@id/comma1"
-        android:paddingStart="5dp"
-        android:paddingTop="5dp"
-        android:textSize="12sp"
-        android:textColor="#000"
-        />
-
-
-    <TextView
-        android:id="@+id/ellipsis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/cocktailThumb"
-        android:layout_below="@id/nameText"
-        android:text="..."
-        android:layout_toRightOf="@id/ingredient2"
-        android:paddingTop="5dp"
-        android:textSize="12sp"
-        android:textColor="#000"
-        />
 
 
 </RelativeLayout>

@@ -14,6 +14,12 @@ public interface IDrinkRecipeProvider {
     @GET("/api/json/v1/1/search.php")
     Observable<SearchResultModel> getDrinkRecipesByIngredient (@Query("s") String ingredient);
 
+    @GET("/api/json/v1/1/filter.php")
+    Observable<SearchResultModel> getDrinkRecipesByIngredient2 (@Query("i") String ingredient);
+
+    @GET("/api/json/v1/1/lookup.php")
+    Observable<SearchResultModel> getDrinkRecipesById (@Query("i") Integer ingredient);
+
     @GET("api/json/v1/1/random.php")
     Observable<SearchResultModel> getRandomDrinkRecipe();
 

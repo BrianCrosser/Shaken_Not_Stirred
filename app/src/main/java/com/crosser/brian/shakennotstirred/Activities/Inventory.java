@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,22 +13,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.content.ContentValues;
 import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Adapters.InventoryListAdapter;
-//import com.crosser.brian.shakennotstirred.Models.IngredientListModel;
 import com.crosser.brian.shakennotstirred.R;
 
 import java.util.ArrayList;
-import java.util.List;
+
+//import com.crosser.brian.shakennotstirred.Models.IngredientListModel;
 
 public class Inventory extends Activity {
 
+    TextView header;
     private boolean result;
 
     //private String[] values = {"Whiskey", "test", "hi","Wine"};
@@ -58,6 +55,11 @@ public class Inventory extends Activity {
 
         InventoryDatabaseHelper = new InventoryListAdapter(this);
 
+        header = (TextView) findViewById(R.id.header);
+
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/007GoldenEye.ttf");
+
+        header.setTypeface(tf);
 
         cabinetView =(ListView) findViewById(R.id.cabinetView);
         // formatting
@@ -125,10 +127,6 @@ public class Inventory extends Activity {
         }
 
     }
-
-
-
-
 
 
 //    private doOnTrueResult() {

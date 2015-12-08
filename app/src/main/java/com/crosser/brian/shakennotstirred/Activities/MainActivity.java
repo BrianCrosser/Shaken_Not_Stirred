@@ -1,24 +1,21 @@
 package com.crosser.brian.shakennotstirred.Activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.crosser.brian.shakennotstirred.R;
 import com.crosser.brian.shakennotstirred.Models.DrinkRecipeModel;
 import com.crosser.brian.shakennotstirred.Models.SearchResultModel;
+import com.crosser.brian.shakennotstirred.R;
 import com.crosser.brian.shakennotstirred.Services.APIClient;
 import com.squareup.picasso.Picasso;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import rx.Subscriber;
@@ -75,12 +72,11 @@ public class MainActivity extends Activity {
             }
         });
 
-        button5.setOnClickListener(new View.OnClickListener() {
-
+        button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), BAC_CalculatorActivity.class);
+                Intent intent = new Intent(v.getContext(), GeniusActivity.class);
                 startActivityForResult(intent, 0);
-                overridePendingTransition(R.anim.animation_up_in, R.anim.animation_up_out);
+                overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
             }
         });
 
@@ -98,6 +94,15 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), StoreActivity.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
+            }
+        });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), BAC_CalculatorActivity.class);
+                startActivityForResult(intent, 0);
+                overridePendingTransition(R.anim.animation_up_in, R.anim.animation_up_out);
             }
         });
 
@@ -245,11 +250,13 @@ public class MainActivity extends Activity {
         if(bac == -1 && bacS != "")
             bac = Float.parseFloat(bacS);
         else{
+            /*
             try {
                 fin.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            */
         }
 
         if(bac < .03)
