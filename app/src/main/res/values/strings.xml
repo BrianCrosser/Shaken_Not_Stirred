@@ -485,6 +485,8 @@
         <item>hhj</item>
         <item>squeezed orange</item>
     </string-array>
+    <string name="title_activity_genius">GeniusActivity</string>
+    <string name="title_activity_genius_display">GeniusDisplay</string>
 
 
 </resources>
