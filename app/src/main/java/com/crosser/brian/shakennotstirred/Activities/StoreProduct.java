@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Adapters.ProductListAdapter;
@@ -26,7 +28,7 @@ public class StoreProduct extends Activity {
     TextView supermarketArea;
     TextView supermarketItem;
     ListView supermarketList;
-
+    private ProgressBar spinner;
     StoreModel storeModel;
 
     @Override
@@ -34,6 +36,8 @@ public class StoreProduct extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_product);
 
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
         supermarketName = (TextView) findViewById(R.id.supermarketName);
         supermarketPhone = (TextView) findViewById(R.id.supermarketPhone);
         supermarketArea = (TextView) findViewById(R.id.supermarketArea);
@@ -41,23 +45,10 @@ public class StoreProduct extends Activity {
         supermarketItem = (TextView) findViewById(R.id.supermarketItem);
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/007GoldenEye.ttf");
 
-//        storeList.setBackgroundColor(Color.LTGRAY);
-//        storeList.getBackground().setAlpha(200);
-
         // get the intent from which this activity is called.
         Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
         // fetch value from key-value pair and make it visible on TextView.
-        /*
-                extras.putString("store-name", storeName);
-                extras.putString("store-address", storeAddress);
-                extras.putString("store-city", storeCity);
-                extras.putString("store-state", storeState);
-                extras.putString("store-zip", storeZip);
-                extras.putString("store-phone", storePhone);
-                extras.putString("store-id", storeID);
-        */
-
         String store_name = extras.getString("store-name");
         String store_address = extras.getString("store-address");
         String store_city = extras.getString("store-city");
@@ -74,6 +65,7 @@ public class StoreProduct extends Activity {
             supermarketArea.setText(store_area);
             supermarketItem.setText(item);
             getSuperMarketData(store_id, item);
+
         }
     }
 
@@ -110,6 +102,16 @@ public class StoreProduct extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_storeproduct, menu);
         return true;
+    }
+    @Override
+    public void onBackPressed() {
+        spinner.setVisibility(View.GONE);
+        super.onBackPressed();
+    }
+    @Override
+    public void onResume() {
+        spinner.setVisibility(View.GONE);
+        super.onResume();
     }
 
 }

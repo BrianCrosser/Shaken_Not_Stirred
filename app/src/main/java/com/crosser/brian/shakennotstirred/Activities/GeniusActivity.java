@@ -1,15 +1,16 @@
 package com.crosser.brian.shakennotstirred.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Adapters.DrinkRecipeListAdapter;
@@ -25,7 +26,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class GeniusActivity extends AppCompatActivity {
+public class GeniusActivity extends Activity {
 
     String ingredient1;
     String ingredient2;
@@ -46,11 +47,15 @@ public class GeniusActivity extends AppCompatActivity {
     Button geniusButton;
     ListView geniusList;
     TextView geniusText;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genius);
+
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
 
         InventoryDatabaseHelper = new InventoryListAdapter(this);
         header = (TextView) findViewById(R.id.header);
@@ -71,14 +76,20 @@ public class GeniusActivity extends AppCompatActivity {
             //cabinetView.setOnItemLongClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(ingredientNumber == 1)
+                spinner.setVisibility(View.VISIBLE);
+                if (ingredientNumber == 1) {
                     ingredient1 = data.get(position);
-                else if(ingredientNumber == 2)
+                    spinner.setVisibility(View.GONE);
+                }
+                else if (ingredientNumber == 2) {
                     ingredient2 = data.get(position);
+                    spinner.setVisibility(View.GONE);
+                }
                 else {
                     ingredient3 = data.get(position);
                     ingredientNumber = 0;
                     cabinetView.setVisibility(View.INVISIBLE);
+                    spinner.setVisibility(View.GONE);
                 }
                 ingredientNumber++;
             }
@@ -90,8 +101,8 @@ public class GeniusActivity extends AppCompatActivity {
         geniusText = (TextView) findViewById(R.id.geniusText);
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/007GoldenEye.ttf");
-        geniusText.setTypeface(tf);
-
+        //geniusText.setTypeface(tf);
+        geniusText.setTypeface(tf, Typeface.BOLD);
         geniusList.setBackgroundColor(Color.LTGRAY);
         geniusButton.getBackground().setAlpha(200);
         geniusList.getBackground().setAlpha(200);
@@ -99,6 +110,7 @@ public class GeniusActivity extends AppCompatActivity {
         geniusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                spinner.setVisibility(View.VISIBLE);
                 APIClient.getRecipeProvider()
                         .getDrinkRecipesByIngredient2(ingredient1)
                         .subscribeOn(Schedulers.newThread())
@@ -107,7 +119,7 @@ public class GeniusActivity extends AppCompatActivity {
 
                             @Override
                             public void onCompleted() {
-
+                                spinner.setVisibility(View.GONE);
                             }
 
                             @Override
@@ -117,6 +129,7 @@ public class GeniusActivity extends AppCompatActivity {
 
                             @Override
                             public void onNext(SearchResultModel searchResultModel) {
+                                spinner.setVisibility(View.GONE);
                                 firstSearchList = searchResultModel.getSearchResults();
                             }
                         });
@@ -128,7 +141,7 @@ public class GeniusActivity extends AppCompatActivity {
 
                             @Override
                             public void onCompleted() {
-
+                                spinner.setVisibility(View.GONE);
                             }
 
                             @Override
@@ -138,6 +151,7 @@ public class GeniusActivity extends AppCompatActivity {
 
                             @Override
                             public void onNext(SearchResultModel searchResultModel) {
+                                spinner.setVisibility(View.GONE);
                                 secondSearchList = searchResultModel.getSearchResults();
                             /*
                             for (DrinkRecipeModel drinkRecipeModel : firstSearchList) {
@@ -165,7 +179,7 @@ public class GeniusActivity extends AppCompatActivity {
 
                             @Override
                             public void onCompleted() {
-
+                                spinner.setVisibility(View.GONE);
                             }
 
                             @Override
@@ -175,6 +189,7 @@ public class GeniusActivity extends AppCompatActivity {
 
                             @Override
                             public void onNext(SearchResultModel searchResultModel) {
+                                spinner.setVisibility(View.GONE);
                                 thirdSearchList = searchResultModel.getSearchResults();
                                 finalSearchList = new ArrayList<DrinkRecipeModel>();
                                 for (int i = 0; i < fourthSearchList.size(); i++) {
@@ -185,6 +200,7 @@ public class GeniusActivity extends AppCompatActivity {
                                     }
                                 }
                                 geniusList.setAdapter(new DrinkRecipeListAdapter(GeniusActivity.this, finalSearchList));
+                                spinner.setVisibility(View.GONE);
                             }
                         });
             }
@@ -193,6 +209,7 @@ public class GeniusActivity extends AppCompatActivity {
         geniusList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+                spinner.setVisibility(View.VISIBLE);
 
                 DrinkRecipeModel value = (DrinkRecipeModel) geniusList.getItemAtPosition(position);
                 // selected item
@@ -206,10 +223,19 @@ public class GeniusActivity extends AppCompatActivity {
                 myIntent.putExtras(extras);
                 startActivity(myIntent);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
-
+                spinner.setVisibility(View.GONE);
             }
         });
 
     }
-
+    @Override
+    public void onBackPressed() {
+        spinner.setVisibility(View.GONE);
+        super.onBackPressed();
+    }
+    @Override
+    public void onResume() {
+        spinner.setVisibility(View.GONE);
+        super.onResume();
+    }
 }

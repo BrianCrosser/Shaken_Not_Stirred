@@ -1,10 +1,10 @@
 package com.crosser.brian.shakennotstirred.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Models.DrinkRecipeModel;
@@ -28,19 +29,22 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class GeniusDisplay extends AppCompatActivity {
+public class GeniusDisplay extends Activity {
     TextView cocktailName;
     TextView ingredient;
     TextView instructionString;
     ImageView cocktailImage;
     ListView List;
-
+    private ProgressBar spinner;
     ArrayList<DrinkRecipeModel> cocktail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genius_display);
+
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
 
         ingredient = (TextView) findViewById(R.id.ingredientText);
         cocktailName = (TextView) findViewById(R.id.cocktailName);
@@ -163,6 +167,8 @@ public class GeniusDisplay extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 
+                                spinner.setVisibility(View.VISIBLE);
+
                                 List.getItemAtPosition(position);
                                 String item = ingredientList.get(position);
 
@@ -236,6 +242,16 @@ public class GeniusDisplay extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_cocktail_display, menu);
         return true;
+    }
+    @Override
+    public void onBackPressed() {
+        spinner.setVisibility(View.GONE);
+        super.onBackPressed();
+    }
+    @Override
+    public void onResume() {
+        spinner.setVisibility(View.GONE);
+        super.onResume();
     }
 
 }

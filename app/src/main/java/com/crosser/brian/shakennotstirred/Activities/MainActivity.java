@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Models.DrinkRecipeModel;
@@ -33,11 +34,15 @@ public class MainActivity extends Activity {
     TextView randomCocktail;
     TextView randomCocktailText;
     ImageButton randomCocktailImage;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
 
         randomCocktail = (TextView) findViewById(R.id.randomCocktail);
         randomCocktailText = (TextView) findViewById(R.id.randomCocktailText);
@@ -69,6 +74,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), SearchActivity.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
+                spinner.setVisibility(View.VISIBLE);
             }
         });
 
@@ -77,6 +83,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), GeniusActivity.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
+                spinner.setVisibility(View.VISIBLE);;
             }
         });
 
@@ -86,6 +93,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), Inventory.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
+                spinner.setVisibility(View.VISIBLE);
             }
         });
 
@@ -94,6 +102,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), StoreActivity.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
+                spinner.setVisibility(View.VISIBLE);
             }
         });
 
@@ -103,9 +112,10 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), BAC_CalculatorActivity.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_up_in, R.anim.animation_up_out);
+                spinner.setVisibility(View.VISIBLE);
             }
         });
-
+        spinner.setVisibility(View.GONE);
         APIClient.getRecipeProvider()
                 .getRandomDrinkRecipe()
                 .subscribeOn(Schedulers.newThread())
@@ -114,7 +124,7 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onCompleted() {
-
+                        spinner.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -124,6 +134,7 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onNext(final SearchResultModel searchResultModel) {
+                        spinner.setVisibility(View.GONE);
                         final DrinkRecipeModel drink = searchResultModel.getSearchResults().get(0);
                         randomCocktailText.setText(drink.drinkName);
 
@@ -136,6 +147,7 @@ public class MainActivity extends Activity {
                         randomCocktailImage.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                spinner.setVisibility(View.VISIBLE);
                                 DrinkRecipeModel value = searchResultModel.getSearchResults().get(0);
                                 // selected item
                                 String cocktail = value.getDrinkName();
@@ -216,18 +228,19 @@ public class MainActivity extends Activity {
                                 myIntent.putExtras(extras);
                                 startActivity(myIntent);
                                 overridePendingTransition(R.anim.animation_fade_in, R.anim.animation_fade_out);
-
+                                spinner.setVisibility(View.GONE);
                             }
                         });
 
                     }
                 });
 
-
+        spinner.setVisibility(View.GONE);
     }
 
     @Override
     public void onResume() {
+        spinner.setVisibility(View.GONE);
         super.onResume();  // Always call the superclass method first
         String FILENAME = "CalculatorInfo";
         float bac = -1;
@@ -265,5 +278,10 @@ public class MainActivity extends Activity {
             button5.setImageResource(R.mipmap.ic_bacyellow);
         else if (bac > .06)
             button5.setImageResource(R.mipmap.ic_bac);
+    }
+    @Override
+    public void onBackPressed() {
+        spinner.setVisibility(View.GONE);
+        super.onBackPressed();
     }
 }

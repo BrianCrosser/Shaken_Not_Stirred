@@ -53,6 +53,14 @@
         android:textSize="50dp"
         android:textColor='#000'
         />
-
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:progressDrawable="@anim/circular_progress_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

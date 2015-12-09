@@ -12,11 +12,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
-import com.crosser.brian.shakennotstirred.R;
 import com.crosser.brian.shakennotstirred.Adapters.DrinkRecipeListAdapter;
 import com.crosser.brian.shakennotstirred.Models.DrinkRecipeModel;
 import com.crosser.brian.shakennotstirred.Models.SearchResultModel;
+import com.crosser.brian.shakennotstirred.R;
 import com.crosser.brian.shakennotstirred.Services.APIClient;
 
 import rx.Subscriber;
@@ -28,12 +29,15 @@ public class SearchActivity extends Activity {
     private ListView ListView1;
     private Button searchButton;
     private EditText searchInput;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
         ListView1 = (ListView) findViewById(R.id.ListView1);
         searchButton = (Button) findViewById(R.id.searchButton);
         searchInput = (EditText) findViewById(R.id.searchInput);
@@ -76,7 +80,7 @@ public class SearchActivity extends Activity {
         ListView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-
+                spinner.setVisibility(View.VISIBLE);
                 DrinkRecipeModel value = (DrinkRecipeModel) ListView1.getItemAtPosition(position);
                 // selected item
                 String cocktail = value.getDrinkName();
@@ -160,6 +164,7 @@ public class SearchActivity extends Activity {
 
             }
         });
+        spinner.setVisibility(View.GONE);
     }
 
     @Override
@@ -183,5 +188,14 @@ public class SearchActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+    public void onBackPressed() {
+        spinner.setVisibility(View.GONE);
+        super.onBackPressed();
+    }
+    @Override
+    public void onResume() {
+        spinner.setVisibility(View.GONE);
+        super.onResume();
+    }
 }

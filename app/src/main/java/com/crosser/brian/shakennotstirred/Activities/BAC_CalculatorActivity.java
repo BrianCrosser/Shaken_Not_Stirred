@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,19 +12,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.crosser.brian.shakennotstirred.R;
 import com.crosser.brian.shakennotstirred.Models.CalculatorModel;
+import com.crosser.brian.shakennotstirred.R;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class BAC_CalculatorActivity extends Activity {
 
@@ -48,6 +47,7 @@ public class BAC_CalculatorActivity extends Activity {
     private TextView tvDisplayTime;
     private TimePicker timePicker1;
     private Button btnChangeTime;
+    private ProgressBar spinner;
 
     public String weight;
     public String gender;
@@ -67,6 +67,9 @@ public class BAC_CalculatorActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bac_calculator);
+
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
 
         genderSpinner = (Spinner) findViewById(R.id.spinner);
         WeightEdit = (EditText) findViewById(R.id.WeightEdit);
@@ -374,5 +377,10 @@ public class BAC_CalculatorActivity extends Activity {
             return String.valueOf(c);
         else
             return " " + String.valueOf(c);
+    }
+    @Override
+    public void onBackPressed() {
+        spinner.setVisibility(View.GONE);
+        super.onBackPressed();
     }
 }

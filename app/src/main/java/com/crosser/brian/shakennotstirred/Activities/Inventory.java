@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Adapters.InventoryListAdapter;
@@ -27,7 +28,7 @@ public class Inventory extends Activity {
 
     TextView header;
     private boolean result;
-
+    private ProgressBar spinner;
     //private String[] values = {"Whiskey", "test", "hi","Wine"};
     //AutoCompleteTextView txtView;
 
@@ -42,7 +43,8 @@ public class Inventory extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
-
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
 
         //start editing here
         //newIngredient=(EditText) findViewById(R.id.newIngredient);
@@ -221,5 +223,9 @@ public class Inventory extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+    public void onBackPressed() {
+        spinner.setVisibility(View.GONE);
+        super.onBackPressed();
+    }
 }

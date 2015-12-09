@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Models.DrinkRecipeModel;
@@ -28,7 +29,7 @@ public class CocktailDisplay extends Activity {
     TextView instructionString;
     ImageView cocktailImage;
     ListView List;
-
+    private ProgressBar spinner;
     DrinkRecipeModel recipe;
 
     @Override
@@ -36,6 +37,8 @@ public class CocktailDisplay extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocktail_display);
 
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
         ingredient = (TextView) findViewById(R.id.ingredientText);
         cocktailName = (TextView) findViewById(R.id.cocktailName);
         cocktailImage = (ImageView) findViewById(R.id.cocktailImage);
@@ -169,7 +172,7 @@ public class CocktailDisplay extends Activity {
         List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-
+                spinner.setVisibility(View.VISIBLE);
                 List.getItemAtPosition(position);
                 String item = ingredientList.get(position);
 
@@ -180,6 +183,7 @@ public class CocktailDisplay extends Activity {
                 overridePendingTransition(R.anim.animation_fade_in, R.anim.animation_fade_out);
             }
         });
+        spinner.setVisibility(View.GONE);
     }
 
     public class CustomArrayAdapter extends BaseAdapter {
@@ -240,5 +244,14 @@ public class CocktailDisplay extends Activity {
         getMenuInflater().inflate(R.menu.menu_cocktail_display, menu);
         return true;
     }
-
+    @Override
+    public void onBackPressed() {
+        spinner.setVisibility(View.GONE);
+        super.onBackPressed();
+    }
+    @Override
+    public void onResume() {
+        spinner.setVisibility(View.GONE);
+        super.onResume();
+    }
 }

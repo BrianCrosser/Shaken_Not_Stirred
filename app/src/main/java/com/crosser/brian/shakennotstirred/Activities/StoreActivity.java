@@ -1,6 +1,7 @@
 package com.crosser.brian.shakennotstirred.Activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Adapters.StoreListAdapter;
@@ -32,7 +34,7 @@ public class StoreActivity extends Activity {
     Button zipButton;
     EditText enterZIP;
     ListView storeList;
-
+    private ProgressBar spinner;
     String item;
 
     StoreModel storeModel;
@@ -42,6 +44,8 @@ public class StoreActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient);
 
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
         storeText = (TextView) findViewById(R.id.storeText);
         ingredientDisplay = (TextView) findViewById(R.id.ingredientDisplay);
         zipButton = (Button) findViewById(R.id.zipButton);
@@ -63,7 +67,7 @@ public class StoreActivity extends Activity {
         zipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                spinner.setVisibility(View.VISIBLE);
                 SupermarketAPIClient.getSupermarketProvider()
                         .getStoreSearchResults(AppDefines.SUPERMARKET_API_KEY, enterZIP.getText().toString())
                         .subscribeOn(Schedulers.newThread())
@@ -93,7 +97,7 @@ public class StoreActivity extends Activity {
         storeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-
+                spinner.setVisibility(View.VISIBLE);
                 StoreModel value = (StoreModel) storeList.getItemAtPosition(position);
                 // selected item
                 String storeName = value.getStorename();
@@ -104,8 +108,7 @@ public class StoreActivity extends Activity {
                 String storePhone = value.getPhone();
                 String storeID = value.getStoreId();
 
-
-                Intent myIntent = new Intent(getApplicationContext(), StoreProduct.class);
+                Intent myIntent = new Intent(getApplicationContext(), StoreProduct2.class);
                 // sending data to new activity
                 Bundle extras = new Bundle();
                 extras.putString("store-name", storeName);
@@ -119,6 +122,12 @@ public class StoreActivity extends Activity {
                 myIntent.putExtras(extras);
                 startActivity(myIntent);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
+                ProgressDialog progress = new ProgressDialog(StoreActivity.this);
+                progress.setTitle("Loading");
+                progress.setMessage("Wait while loading...");
+                progress.show();
+                // To dismiss the dialog
+                progress.dismiss();
 
             }
         });
@@ -130,6 +139,16 @@ public class StoreActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_store, menu);
         return true;
+    }
+    @Override
+    public void onBackPressed() {
+        spinner.setVisibility(View.GONE);
+        super.onBackPressed();
+    }
+    @Override
+    public void onResume() {
+        spinner.setVisibility(View.GONE);
+        super.onResume();
     }
 
 }

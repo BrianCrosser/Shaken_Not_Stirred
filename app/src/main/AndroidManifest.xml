@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.crosser.brian.shakennotstirred">
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,7 +10,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.SplashScreen"
-            android:label="@string/title_activity_splash_screen"
+            android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter android:label="SnS">
@@ -61,10 +60,12 @@
         <activity
             android:name=".Activities.GeniusActivity"
             android:label="@string/title_activity_genius"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             />
         <activity
             android:name=".Activities.GeniusDisplay"
             android:label="@string/title_activity_genius_display"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             />
     </application>
 
