@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Adapters.DrinkRecipeListAdapter;
+import com.crosser.brian.shakennotstirred.Adapters.InventoryListAdapter;
 import com.crosser.brian.shakennotstirred.Models.DrinkRecipeModel;
 import com.crosser.brian.shakennotstirred.Models.SearchResultModel;
 import com.crosser.brian.shakennotstirred.R;
@@ -25,9 +27,14 @@ import rx.schedulers.Schedulers;
 
 public class GeniusActivity extends AppCompatActivity {
 
-    String ingredient1 = "Tequila";
-    String ingredient2 = "Triple Sec";
-    String ingredient3 = "Lime Juice";
+    String ingredient1;
+    String ingredient2;
+    String ingredient3;
+    String[] ingredientArray;
+    TextView header;
+    private InventoryListAdapter InventoryDatabaseHelper;
+    private ListView cabinetView;
+    Integer ingredientNumber = 1;
 
     ArrayList <DrinkRecipeModel> firstSearchList;
     ArrayList <DrinkRecipeModel> secondSearchList;
@@ -44,6 +51,39 @@ public class GeniusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genius);
+
+        InventoryDatabaseHelper = new InventoryListAdapter(this);
+        header = (TextView) findViewById(R.id.header);
+
+        cabinetView =(ListView) findViewById(R.id.cabinetView);
+        // formatting
+        cabinetView.setBackgroundColor(Color.LTGRAY);
+        cabinetView.getBackground().setAlpha(200);
+
+        final ArrayList<String> data = InventoryDatabaseHelper.getAllIngredients();
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                data);
+        cabinetView.setAdapter(adapter);
+
+        cabinetView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //cabinetView.setOnItemLongClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(ingredientNumber == 1)
+                    ingredient1 = data.get(position);
+                else if(ingredientNumber == 2)
+                    ingredient2 = data.get(position);
+                else {
+                    ingredient3 = data.get(position);
+                    ingredientNumber = 0;
+                    cabinetView.setVisibility(View.INVISIBLE);
+                }
+                ingredientNumber++;
+            }
+        });
+
 
         geniusButton = (Button) findViewById(R.id.geniusButton);
         geniusList = (ListView) findViewById(R.id.geniusList);
