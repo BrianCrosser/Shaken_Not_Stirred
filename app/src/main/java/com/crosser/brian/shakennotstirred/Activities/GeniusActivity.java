@@ -2,12 +2,14 @@ package com.crosser.brian.shakennotstirred.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Adapters.DrinkRecipeListAdapter;
 import com.crosser.brian.shakennotstirred.Models.DrinkRecipeModel;
@@ -23,9 +25,9 @@ import rx.schedulers.Schedulers;
 
 public class GeniusActivity extends AppCompatActivity {
 
-    String ingredient1 = "Coca-Cola";
-    String ingredient2 = "Tequila";
-    String ingredient3 = "Vodka";
+    String ingredient1 = "Tequila";
+    String ingredient2 = "Triple Sec";
+    String ingredient3 = "Lime Juice";
 
     ArrayList <DrinkRecipeModel> firstSearchList;
     ArrayList <DrinkRecipeModel> secondSearchList;
@@ -36,6 +38,7 @@ public class GeniusActivity extends AppCompatActivity {
 
     Button geniusButton;
     ListView geniusList;
+    TextView geniusText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,10 @@ public class GeniusActivity extends AppCompatActivity {
 
         geniusButton = (Button) findViewById(R.id.geniusButton);
         geniusList = (ListView) findViewById(R.id.geniusList);
+        geniusText = (TextView) findViewById(R.id.geniusText);
+
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/007GoldenEye.ttf");
+        geniusText.setTypeface(tf);
 
         geniusList.setBackgroundColor(Color.LTGRAY);
         geniusButton.getBackground().setAlpha(200);
@@ -142,6 +149,7 @@ public class GeniusActivity extends AppCompatActivity {
                         });
             }
         });
+
         geniusList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
@@ -149,7 +157,6 @@ public class GeniusActivity extends AppCompatActivity {
                 DrinkRecipeModel value = (DrinkRecipeModel) geniusList.getItemAtPosition(position);
                 // selected item
                 Integer cocktail = value.getDrinkId();
-
 
                 Intent myIntent = new Intent(getApplicationContext(), GeniusDisplay.class);
                 // sending data to new activity

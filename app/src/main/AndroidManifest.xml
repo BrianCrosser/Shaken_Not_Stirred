@@ -61,13 +61,11 @@
         <activity
             android:name=".Activities.GeniusActivity"
             android:label="@string/title_activity_genius"
-            android:theme="@style/AppTheme.NoActionBar" />
+            />
         <activity
             android:name=".Activities.GeniusDisplay"
             android:label="@string/title_activity_genius_display"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            />
     </application>
 
 </manifest>

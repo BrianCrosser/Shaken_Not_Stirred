@@ -8,15 +8,8 @@ public class SearchResultModel {
     @SerializedName("drinks")
     ArrayList<DrinkRecipeModel> searchResults;
 
-    @SerializedName("drinks")
-    DrinkRecipeModel cocktailResults;
-
     public ArrayList<DrinkRecipeModel> getSearchResults(){
         return searchResults;
-    }
-
-    public DrinkRecipeModel getCocktailResults(){
-        return cocktailResults;
     }
 
     public void setSearchResults(ArrayList<DrinkRecipeModel> searchResults){
