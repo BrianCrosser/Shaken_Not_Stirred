@@ -45,14 +45,24 @@ public class GeniusActivity extends Activity {
     ArrayList <DrinkRecipeModel> finalSearchList;
 
     Button geniusButton;
+    Button resetButton;
     ListView geniusList;
     TextView geniusText;
+    TextView ingredientFirst;
+    TextView ingredientSecond;
+    TextView ingredientThird;
+    TextView noDrinks;
     private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genius);
+
+        ingredientFirst = (TextView) findViewById(R.id.ingredient1);
+        ingredientSecond = (TextView) findViewById(R.id.ingredient2);
+        ingredientThird = (TextView) findViewById(R.id.ingredient3);
+        noDrinks = (TextView) findViewById(R.id.noDrinks);
 
         spinner=(ProgressBar)findViewById(R.id.progressBar);
         spinner.setVisibility(View.GONE);
@@ -80,16 +90,16 @@ public class GeniusActivity extends Activity {
                 if (ingredientNumber == 1) {
                     ingredient1 = data.get(position);
                     spinner.setVisibility(View.GONE);
-                }
-                else if (ingredientNumber == 2) {
+                    ingredientFirst.setText("Ingredient 1: " + ingredient1);
+                } else if (ingredientNumber == 2) {
                     ingredient2 = data.get(position);
                     spinner.setVisibility(View.GONE);
-                }
-                else {
+                    ingredientSecond.setText("Ingredient 2: " + ingredient2);
+                } else {
                     ingredient3 = data.get(position);
                     ingredientNumber = 0;
-                    cabinetView.setVisibility(View.INVISIBLE);
                     spinner.setVisibility(View.GONE);
+                    ingredientThird.setText("Ingredient 3: " + ingredient3);
                 }
                 ingredientNumber++;
             }
@@ -99,110 +109,189 @@ public class GeniusActivity extends Activity {
         geniusButton = (Button) findViewById(R.id.geniusButton);
         geniusList = (ListView) findViewById(R.id.geniusList);
         geniusText = (TextView) findViewById(R.id.geniusText);
-
+        resetButton = (Button) findViewById(R.id.resetButton);
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/007GoldenEye.ttf");
         //geniusText.setTypeface(tf);
         geniusText.setTypeface(tf, Typeface.BOLD);
         geniusList.setBackgroundColor(Color.LTGRAY);
         geniusButton.getBackground().setAlpha(200);
+        resetButton.getBackground().setAlpha(200);
         geniusList.getBackground().setAlpha(200);
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), GeniusActivity.class);
+                finish();
+                startActivityForResult(intent, 0);
+                overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
+                spinner.setVisibility(View.VISIBLE);
+                ;
+            }
+        });
 
         geniusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cabinetView.setVisibility(View.INVISIBLE);
                 spinner.setVisibility(View.VISIBLE);
-                APIClient.getRecipeProvider()
-                        .getDrinkRecipesByIngredient2(ingredient1)
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<SearchResultModel>() {
+                if(ingredient3 != null){
+                    APIClient.getRecipeProvider()
+                            .getDrinkRecipesByIngredient2(ingredient1)
+                            .subscribeOn(Schedulers.newThread())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<SearchResultModel>() {
 
-                            @Override
-                            public void onCompleted() {
-                                spinner.setVisibility(View.GONE);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                int i = 0;
-                            }
-
-                            @Override
-                            public void onNext(SearchResultModel searchResultModel) {
-                                spinner.setVisibility(View.GONE);
-                                firstSearchList = searchResultModel.getSearchResults();
-                            }
-                        });
-                APIClient.getRecipeProvider()
-                        .getDrinkRecipesByIngredient2(ingredient2)
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<SearchResultModel>() {
-
-                            @Override
-                            public void onCompleted() {
-                                spinner.setVisibility(View.GONE);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                int i = 0;
-                            }
-
-                            @Override
-                            public void onNext(SearchResultModel searchResultModel) {
-                                spinner.setVisibility(View.GONE);
-                                secondSearchList = searchResultModel.getSearchResults();
-                            /*
-                            for (DrinkRecipeModel drinkRecipeModel : firstSearchList) {
-                                if (secondSearchList.equals(firstSearchList)) {
-                                    fourthSearchList.add(drinkRecipeModel);
+                                @Override
+                                public void onCompleted() {
+                                    spinner.setVisibility(View.GONE);
                                 }
-                            }
-                            */
-                                fourthSearchList = new ArrayList<DrinkRecipeModel>();
-                                for (int i = 0; i < firstSearchList.size(); i++) {
-                                    for (int j = 0; j < secondSearchList.size(); j++) {
-                                        if (firstSearchList.get(i).getDrinkId() == (secondSearchList.get(j).getDrinkId())) {
-                                            fourthSearchList.add(secondSearchList.get(j));
-                                        }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    int i = 0;
+                                }
+
+                                @Override
+                                public void onNext(SearchResultModel searchResultModel) {
+                                    spinner.setVisibility(View.GONE);
+                                    firstSearchList = searchResultModel.getSearchResults();
+                                }
+                    });
+                    APIClient.getRecipeProvider()
+                            .getDrinkRecipesByIngredient2(ingredient2)
+                            .subscribeOn(Schedulers.newThread())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<SearchResultModel>() {
+
+                                @Override
+                                public void onCompleted() {
+                                    spinner.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    int i = 0;
+                                }
+
+                                @Override
+                                public void onNext(SearchResultModel searchResultModel) {
+                                    spinner.setVisibility(View.GONE);
+                                    secondSearchList = searchResultModel.getSearchResults();
+                                /*
+                                for (DrinkRecipeModel drinkRecipeModel : firstSearchList) {
+                                    if (secondSearchList.equals(firstSearchList)) {
+                                        fourthSearchList.add(drinkRecipeModel);
                                     }
                                 }
-
-                            }
-                        });
-                APIClient.getRecipeProvider()
-                        .getDrinkRecipesByIngredient2(ingredient3)
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<SearchResultModel>() {
-
-                            @Override
-                            public void onCompleted() {
-                                spinner.setVisibility(View.GONE);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                int i = 0;
-                            }
-
-                            @Override
-                            public void onNext(SearchResultModel searchResultModel) {
-                                spinner.setVisibility(View.GONE);
-                                thirdSearchList = searchResultModel.getSearchResults();
-                                finalSearchList = new ArrayList<DrinkRecipeModel>();
-                                for (int i = 0; i < fourthSearchList.size(); i++) {
-                                    for (int j = 0; j < thirdSearchList.size(); j++) {
-                                        if (fourthSearchList.get(i).getDrinkId() == (thirdSearchList.get(j).getDrinkId())) {
-                                            finalSearchList.add(thirdSearchList.get(j));
+                                */
+                                    fourthSearchList = new ArrayList<DrinkRecipeModel>();
+                                    for (int i = 0; i < firstSearchList.size(); i++) {
+                                        for (int j = 0; j < secondSearchList.size(); j++) {
+                                            if (firstSearchList.get(i).getDrinkId() == (secondSearchList.get(j).getDrinkId())) {
+                                                fourthSearchList.add(secondSearchList.get(j));
+                                            }
                                         }
                                     }
+
                                 }
-                                geniusList.setAdapter(new DrinkRecipeListAdapter(GeniusActivity.this, finalSearchList));
-                                spinner.setVisibility(View.GONE);
-                            }
-                        });
+                    });
+
+                    APIClient.getRecipeProvider()
+                            .getDrinkRecipesByIngredient2(ingredient3)
+                            .subscribeOn(Schedulers.newThread())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<SearchResultModel>() {
+
+                                @Override
+                                public void onCompleted() {
+                                    spinner.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    int i = 0;
+                                }
+
+                                @Override
+                                public void onNext(SearchResultModel searchResultModel) {
+                                    spinner.setVisibility(View.GONE);
+                                    thirdSearchList = searchResultModel.getSearchResults();
+                                    finalSearchList = new ArrayList<DrinkRecipeModel>();
+                                    for (int i = 0; i < fourthSearchList.size(); i++) {
+                                        for (int j = 0; j < thirdSearchList.size(); j++) {
+                                            if (fourthSearchList.get(i).getDrinkId() == (thirdSearchList.get(j).getDrinkId())) {
+                                                finalSearchList.add(thirdSearchList.get(j));
+                                            }
+                                        }
+                                    }
+                                    if (finalSearchList.isEmpty())
+                                        noDrinks.setVisibility(View.VISIBLE);
+                                    else
+                                        geniusList.setAdapter(new DrinkRecipeListAdapter(GeniusActivity.this, finalSearchList));
+                                    spinner.setVisibility(View.GONE);
+                                }
+                            });
+                }
+                else{
+                    APIClient.getRecipeProvider()
+                            .getDrinkRecipesByIngredient2(ingredient1)
+                            .subscribeOn(Schedulers.newThread())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<SearchResultModel>() {
+
+                                @Override
+                                public void onCompleted() {
+                                    spinner.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    int i = 0;
+                                }
+
+                                @Override
+                                public void onNext(SearchResultModel searchResultModel) {
+                                    spinner.setVisibility(View.GONE);
+                                    firstSearchList = searchResultModel.getSearchResults();
+                                }
+                            });
+                    APIClient.getRecipeProvider()
+                            .getDrinkRecipesByIngredient2(ingredient2)
+                            .subscribeOn(Schedulers.newThread())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<SearchResultModel>() {
+
+                                @Override
+                                public void onCompleted() {
+                                    spinner.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    int i = 0;
+                                }
+
+                                @Override
+                                public void onNext(SearchResultModel searchResultModel) {
+                                    spinner.setVisibility(View.GONE);
+                                    secondSearchList = searchResultModel.getSearchResults();
+                                      fourthSearchList = new ArrayList<DrinkRecipeModel>();
+                                    for (int i = 0; i < firstSearchList.size(); i++) {
+                                        for (int j = 0; j < secondSearchList.size(); j++) {
+                                            if (firstSearchList.get(i).getDrinkId() == (secondSearchList.get(j).getDrinkId())) {
+                                                fourthSearchList.add(secondSearchList.get(j));
+                                            }
+                                        }
+                                    }
+                                    if (fourthSearchList.isEmpty())
+                                        noDrinks.setVisibility(View.VISIBLE);
+                                    else
+                                        geniusList.setAdapter(new DrinkRecipeListAdapter(GeniusActivity.this, fourthSearchList));
+                                    spinner.setVisibility(View.GONE);
+                                }
+                            });
+                }
             }
         });
 
