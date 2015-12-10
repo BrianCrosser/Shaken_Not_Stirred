@@ -74,7 +74,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), SearchActivity.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
-                spinner.setVisibility(View.VISIBLE);
+                //spinner.setVisibility(View.VISIBLE);
             }
         });
 
@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), GeniusActivity.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
-                spinner.setVisibility(View.VISIBLE);;
+                //spinner.setVisibility(View.VISIBLE);;
             }
         });
 
@@ -93,7 +93,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), Inventory.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
-                spinner.setVisibility(View.VISIBLE);
+                //spinner.setVisibility(View.VISIBLE);
             }
         });
 
@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), StoreActivity.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
-                spinner.setVisibility(View.VISIBLE);
+                //spinner.setVisibility(View.VISIBLE);
             }
         });
 
@@ -112,7 +112,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(v.getContext(), BAC_CalculatorActivity.class);
                 startActivityForResult(intent, 0);
                 overridePendingTransition(R.anim.animation_up_in, R.anim.animation_up_out);
-                spinner.setVisibility(View.VISIBLE);
+                //spinner.setVisibility(View.VISIBLE);
             }
         });
         spinner.setVisibility(View.GONE);
@@ -147,7 +147,7 @@ public class MainActivity extends Activity {
                         randomCocktailImage.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                spinner.setVisibility(View.VISIBLE);
+                                //spinner.setVisibility(View.VISIBLE);
                                 DrinkRecipeModel value = searchResultModel.getSearchResults().get(0);
                                 // selected item
                                 String cocktail = value.getDrinkName();

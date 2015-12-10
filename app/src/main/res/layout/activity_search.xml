@@ -36,6 +36,19 @@
         android:divider="#000"
         android:dividerHeight="1dp"
         />
+
+    <TextView
+        android:id="@+id/notFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Cocktails Found With That Name"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:layout_centerInParent="true"
+        />
+
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"

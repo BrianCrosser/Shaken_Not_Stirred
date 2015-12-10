@@ -76,7 +76,7 @@ public class StoreActivity extends Activity {
 
                             @Override
                             public void onCompleted() {
-
+                                spinner.setVisibility(View.GONE);
                             }
 
                             @Override
@@ -88,8 +88,9 @@ public class StoreActivity extends Activity {
                             public void onNext(StoreResultModel storeResultModel) {
                                 storeList.setAdapter(new StoreListAdapter(StoreActivity.this, storeResultModel.getSearchStoresResults()));
                                 //getSuperMarketData(storeModel.getStoreID());
-                            }
+                                spinner.setVisibility(View.GONE);
 
+                            }
                         });
             }
         });

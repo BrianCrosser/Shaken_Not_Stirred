@@ -251,7 +251,7 @@
                 android:text="Calculate"
                 android:id="@+id/button"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -259,7 +259,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="BAC Level:"
                 android:id="@+id/textView3"
-                android:paddingTop="15dp"
+                android:paddingTop="5dp"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -269,7 +269,7 @@
                 android:text=""
                 android:id="@+id/textView12"
                 android:layout_gravity="center"
-                android:layout_marginBottom="25dp"/>
+                android:layout_marginBottom="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

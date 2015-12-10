@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.crosser.brian.shakennotstirred.Adapters.DrinkRecipeListAdapter;
 import com.crosser.brian.shakennotstirred.Models.DrinkRecipeModel;
@@ -30,6 +32,7 @@ public class SearchActivity extends Activity {
     private Button searchButton;
     private EditText searchInput;
     private ProgressBar spinner;
+    private TextView notFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,11 @@ public class SearchActivity extends Activity {
         searchInput.getBackground().setAlpha(200);
         searchButton.getBackground().setAlpha(200);
         ListView1.getBackground().setAlpha(200);
+
+        notFound = (TextView) findViewById(R.id.notFound);
+        notFound.setVisibility(View.INVISIBLE);
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/007GoldenEye.ttf");
+        notFound.setTypeface(tf);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,8 +78,13 @@ public class SearchActivity extends Activity {
 
                             @Override
                             public void onNext(SearchResultModel searchResultModel) {
-                                ListView1.setAdapter(new DrinkRecipeListAdapter(SearchActivity.this, searchResultModel.getSearchResults()));
-
+                                if(searchResultModel.getSearchResults() == null){
+                                    notFound.setVisibility(View.VISIBLE);
+                                }
+                                else {
+                                    notFound.setVisibility(View.INVISIBLE);
+                                    ListView1.setAdapter(new DrinkRecipeListAdapter(SearchActivity.this, searchResultModel.getSearchResults()));
+                                }
                             }
                         });
             }

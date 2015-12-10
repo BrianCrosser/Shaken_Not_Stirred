@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/geniusText"
             android:text="Cocktail Genius*"
-            android:textSize="45dp"
+            android:textSize="40dp"
             android:padding="10dp"
             android:textColor="#fff"
             android:textStyle="bold"

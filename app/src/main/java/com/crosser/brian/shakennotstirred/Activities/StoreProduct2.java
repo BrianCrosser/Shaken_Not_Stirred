@@ -1,7 +1,6 @@
 package com.crosser.brian.shakennotstirred.Activities;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -36,6 +35,7 @@ public class StoreProduct2 extends Activity {
     EditText item;
     Button itemEnter;
     private ProgressBar spinner;
+    TextView supermarketItemText;
 
     StoreModel storeModel;
 
@@ -50,14 +50,14 @@ public class StoreProduct2 extends Activity {
         supermarketPhone = (TextView) findViewById(R.id.supermarketPhone);
         supermarketArea = (TextView) findViewById(R.id.supermarketArea);
         supermarketList = (ListView) findViewById(R.id.supermarketList);
-
+        supermarketItemText = (TextView) findViewById(R.id.supermarketItemText);
         supermarketItem = (TextView) findViewById(R.id.supermarketItem);
         item = (EditText) findViewById(R.id.searchItem);
         itemEnter = (Button) findViewById(R.id.itemButton);
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/007GoldenEye.ttf");
-//        supermarketPhone.setTypeface(tf);
-//        supermarketArea.setTypeface(tf);
-//        supermarketName.setTypeface(tf);
+        supermarketPhone.setTypeface(tf);
+        supermarketArea.setTypeface(tf);
+        supermarketName.setTypeface(tf);
 
         item.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
@@ -89,12 +89,6 @@ public class StoreProduct2 extends Activity {
             @Override
             public void onClick(View v) {
                 spinner.setVisibility(View.VISIBLE);
-                ProgressDialog progress = new ProgressDialog(StoreProduct2.this);
-                progress.setTitle("Loading");
-                progress.setMessage("Wait while loading...");
-                progress.show();
-                // To dismiss the dialog
-                progress.dismiss();
                 getSuperMarketData(store_id, item.getText().toString());
             }
         });
@@ -109,7 +103,7 @@ public class StoreProduct2 extends Activity {
 
                     @Override
                     public void onCompleted() {
-
+                        spinner.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -120,6 +114,7 @@ public class StoreProduct2 extends Activity {
                     @Override
                     public void onNext(ProductResultModel productResultModel) {
                         supermarketList.setAdapter(new ProductListAdapter(StoreProduct2.this, productResultModel.getSearchItemResults()));
+                        spinner.setVisibility(View.GONE);
                     }
                 });
 

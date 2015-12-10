@@ -23,8 +23,7 @@
         android:layout_alignParentTop="true"
         android:paddingTop="15dp"
         android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:textSize="35sp"
+        android:textSize="45sp"
         android:textColor="#000"
         android:gravity="center"
         android:layout_centerHorizontal="true"/>
@@ -35,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/supermarketName"
-        android:paddingTop="15dp"
+        android:paddingTop="5dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:textSize="25sp"

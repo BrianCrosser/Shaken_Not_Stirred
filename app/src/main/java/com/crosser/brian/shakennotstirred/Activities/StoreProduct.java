@@ -45,6 +45,12 @@ public class StoreProduct extends Activity {
         supermarketItem = (TextView) findViewById(R.id.supermarketItem);
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/007GoldenEye.ttf");
 
+        supermarketName.setTypeface(tf);
+        supermarketPhone.setTypeface(tf);
+        supermarketArea.setTypeface(tf);
+        supermarketItem.setTypeface(tf);
+
+
         // get the intent from which this activity is called.
         Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
@@ -78,7 +84,7 @@ public class StoreProduct extends Activity {
 
                     @Override
                     public void onCompleted() {
-
+                        spinner.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -89,6 +95,7 @@ public class StoreProduct extends Activity {
                     @Override
                     public void onNext(ProductResultModel productResultModel) {
                         supermarketList.setAdapter(new ProductListAdapter(StoreProduct.this, productResultModel.getSearchItemResults()));
+                        spinner.setVisibility(View.GONE);
                     }
                 });
 

@@ -1,7 +1,6 @@
 package com.crosser.brian.shakennotstirred.Activities;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -72,12 +71,6 @@ public class Ingredient extends Activity {
             @Override
             public void onClick(View v) {
                 spinner.setVisibility(View.VISIBLE);
-                ProgressDialog progress = new ProgressDialog(Ingredient.this);
-                progress.setTitle("Loading");
-                progress.setMessage("Wait while loading...");
-                progress.show();
-                // To dismiss the dialog
-                progress.dismiss();
                 SupermarketAPIClient.getSupermarketProvider()
                         .getStoreSearchResults(AppDefines.SUPERMARKET_API_KEY, enterZIP.getText().toString())
                         .subscribeOn(Schedulers.newThread())
