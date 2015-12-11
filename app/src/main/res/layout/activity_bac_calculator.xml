@@ -274,7 +274,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="WARNING!: The BAC Calculator gives \n     an ESTIMATED BAC level. Using \n    with caution and at your own risk!"
+                android:text="WARNING!: The BAC Calculator gives \n        an ESTIMATED BAC level.  \nUse with caution and at your own risk!"
                 android:id="@+id/textView13"
                 android:textColor="#ff0000"
                 android:layout_gravity="center"
